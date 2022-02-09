@@ -1,10 +1,13 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
 
-const HistoryTab = () => {
+const HistoryTab = ({ navigation }) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate("orderDetail")}
+      style={styles.container}
+    >
       <View>
         <View style={[styles.flex, { paddingBottom: 4 }]}>
           <Text style={styles.text}>Order # 42356 </Text>
@@ -48,7 +51,7 @@ const HistoryTab = () => {
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 export { HistoryTab };

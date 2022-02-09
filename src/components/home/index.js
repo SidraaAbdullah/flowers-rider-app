@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Text, View, StyleSheet, ScrollView } from "react-native";
 import { NewTab, OnGoingTab, HistoryTab } from "./components";
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const [tab, setTab] = useState("new");
   const isTrue = { color: "black", backgroundColor: "white" };
   let newStyle = tab != "new" ? { color: "#818C99" } : isTrue;
@@ -30,11 +30,11 @@ const Home = () => {
       <ScrollView>
         <View style={{ paddingTop: 15 }}>
           {tab === "new" ? (
-            <NewTab />
+            <NewTab navigation={navigation} />
           ) : tab === "onGoing" ? (
-            <OnGoingTab />
+            <OnGoingTab navigation={navigation} />
           ) : tab === "history" ? (
-            <HistoryTab />
+            <HistoryTab navigation={navigation} />
           ) : null}
         </View>
       </ScrollView>

@@ -1,9 +1,12 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 
-const OnGoingTab = () => {
+const OnGoingTab = ({ navigation }) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate("orderDetail")}
+      style={styles.container}
+    >
       <View>
         <View style={[styles.flex, { paddingBottom: 4 }]}>
           <Text style={styles.text}>Order # 42356 </Text>
@@ -32,7 +35,7 @@ const OnGoingTab = () => {
           <Text style={[styles.text, { fontSize: 16 }]}>Flower</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 export { OnGoingTab };

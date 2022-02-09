@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, Switch } from "react-native";
 import { Icon } from "react-native-elements";
 import Home from "../components/home/index";
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const [isEnabled, setIsEnabled] = useState(true);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   return (
@@ -23,7 +23,7 @@ const HomeScreen = () => {
             justifyContent: "flex-end",
             alignItems: "center",
             paddingTop: 5,
-            paddingRight:5
+            paddingRight: 5,
           }}
         >
           <Text
@@ -40,8 +40,8 @@ const HomeScreen = () => {
           />
         </View>
 
-        <View style={{ paddingVertical: 10, }}>
-          <Home />
+        <View style={{ paddingVertical: 10 }}>
+          <Home navigation={navigation} />
         </View>
       </View>
     </View>

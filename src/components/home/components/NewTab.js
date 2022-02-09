@@ -1,9 +1,12 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 
-const NewTab = () => {
+const NewTab = ({ navigation }) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate("orderDetail")}
+      style={styles.container}
+    >
       <View>
         <View style={[styles.flex, { paddingBottom: 4 }]}>
           <Text style={styles.text}>Order # 42356 </Text>
@@ -21,7 +24,7 @@ const NewTab = () => {
           <Text style={styles.text}>$4</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 export { NewTab };
