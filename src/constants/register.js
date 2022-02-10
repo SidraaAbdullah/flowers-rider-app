@@ -12,8 +12,7 @@ export const signUpInitialValues = {
 export const signUpValidationSchema = () =>
   Yup.object({
     email: Yup.string().email("Invalid email address").required("Required"),
-    name: Yup
-      .string()
+    name: Yup.string()
       .required("Required")
       .matches(nameRegex, "Use alphabets only"),
     phoneNumber: Yup.string()
@@ -47,3 +46,16 @@ export const signInValidationSchema = () =>
       .max(9, "too long")
       .matches(passwordRegex, "Use alphabets and numbers only"),
   });
+
+export const USER_TYPES = {
+  DRIVER: "DRIVER",
+  CONSUMER: "CONSUMER",
+  ADMIN: "ADMIN",
+};
+export const ORDER_STATUSES = {
+  "IN-PROGRESS": "IN-PROGRESS",
+  "DRIVER-ASSIGNED": "DRIVER-ASSIGNED",
+  "DRIVER-PICKED": "DRIVER-PICKED",
+  DELIVERED: "DELIVERED",
+  CANCELLED: "CANCELLED",
+};

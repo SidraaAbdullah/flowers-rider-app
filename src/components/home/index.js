@@ -1,43 +1,77 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet, ScrollView } from "react-native";
-import { NewTab, OnGoingTab, HistoryTab } from "./components";
+import { useQuery } from "react-query";
+import { ORDER_STATUSES, USER_TYPES } from "../../constants";
+import colors from "../../constants/colors";
+import { getSocketData } from "../../hooks/socket-api";
+import { orderTabs } from "../../util/home";
+// import { NewTab, OnGoingTab, HistoryTab } from "./components";
 
 const Home = ({ navigation }) => {
-  const [tab, setTab] = useState("new");
+  const [tab, setTab] = useState(orderTabs[0].name);
+  const [orderData, setOrderData] = useState([]);
+  useQuery(`/order?type=${USER_TYPES.DRIVER}`, {
+    onSuccess: (res) => {
+      setOrderData(res.data || []);
+    },
+  });
   const isTrue = { color: "black", backgroundColor: "white" };
-  let newStyle = tab != "new" ? { color: "#818C99" } : isTrue;
-  let onGoingStyle = tab != "onGoing" ? { color: "#818C99" } : isTrue;
-  let historyStyle = tab != "history" ? { color: "#818C99" } : isTrue;
+  const Active = orderTabs.find((item) => item.name === tab);
+  const data = {
+    New: orderData.filter((item) =>
+      [ORDER_STATUSES["IN-PROGRESS"]].includes(item.status)
+    ),
+    Ongoing: orderData.filter((item) =>
+      [
+        ORDER_STATUSES["DRIVER-ASSIGNED"],
+        ORDER_STATUSES["DRIVER-PICKED"],
+      ].includes(item.status)
+    ),
+    History: orderData.filter((item) =>
+      [ORDER_STATUSES.CANCELLED, ORDER_STATUSES.DELIVERED].includes(item.status)
+    ),
+  };
+  const getNewOrder = (newOrder) => {
+    setOrderData((prev) => {
+      const filter = prev.filter((item) => item._id !== newOrder._id);
+      return [newOrder, ...filter];
+    });
+  };
+  const updateOrderStatus = (newOrder) => {
+    setOrderData((orderData) => {
+      const filteredOrders = orderData.filter(
+        (item) => item._id !== newOrder.order_id
+      );
+      return filteredOrders;
+    });
+  };
+  useEffect(() => {
+    getSocketData("new_order", getNewOrder);
+    getSocketData("update_status", updateOrderStatus);
+  }, []);
+
   return (
-    <View>
+    <View style={{ flex: 1, marginHorizontal: 16 }}>
       <View style={styles.container}>
-        <Text onPress={() => setTab("new")} style={[styles.text, newStyle]}>
-          New
-        </Text>
-        <Text
-          onPress={() => setTab("onGoing")}
-          style={[styles.text, onGoingStyle]}
-        >
-          Ongoing
-        </Text>
-        <Text
-          onPress={() => setTab("history")}
-          style={[styles.text, historyStyle]}
-        >
-          History
-        </Text>
+        {orderTabs.map((item, key) => (
+          <Text
+            key={key}
+            onPress={() => setTab(item.name)}
+            style={[
+              styles.text,
+              tab !== item.name ? { color: colors.greyShade1 } : isTrue,
+            ]}
+          >
+            {item.name}
+          </Text>
+        ))}
       </View>
-      <ScrollView>
-        <View style={{ paddingTop: 15 }}>
-          {tab === "new" ? (
-            <NewTab navigation={navigation} />
-          ) : tab === "onGoing" ? (
-            <OnGoingTab navigation={navigation} />
-          ) : tab === "history" ? (
-            <HistoryTab navigation={navigation} />
-          ) : null}
-        </View>
-      </ScrollView>
+      <View style={{ paddingTop: 15, flex: 1, marginBottom: 10 }}>
+        <Active.Component
+          navigation={navigation}
+          data={data[Active.name] || []}
+        />
+      </View>
     </View>
   );
 };

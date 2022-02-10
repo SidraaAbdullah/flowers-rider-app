@@ -61,10 +61,8 @@ const HomeScreen = ({ navigation }) => {
             value={isEnabled}
           />
         </View>
-        <View style={{ paddingVertical: 10 }}>
-          <Home navigation={navigation} />
-        </View>
       </View>
+      <Home navigation={navigation} />
     </View>
   );
 };
