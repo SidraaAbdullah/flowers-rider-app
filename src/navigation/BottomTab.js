@@ -13,26 +13,33 @@ const App = () => {
       screenOptions={({ route }) => ({
         headerShown: true,
         headerTitleAlign: "center",
-        tabBarStyle: {
-          paddingBottom: 5,
-        },
-        tabBarIcon: ({ color, type }) => {
-          let iconName;
-          route.name === "Home" ? (iconName = "home") : null;
-          return (
-            <Icon
-              type={type || "font-awesome"}
-              name={iconName}
-              size={25}
-              color={color}
-            />
-          );
-        },
         tabBarActiveTintColor: "black",
         tabBarInactiveTintColor: "gray",
       })}
     >
-      <Tab.Screen name="Home" component={Screen.HomeScreen} />
+      <Tab.Screen
+        name="Home"
+        component={Screen.HomeScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Icon type="font-awesome" name={"home"} size={25} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Screen.ProfileScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Icon
+              type="font-awesome"
+              name="user-circle"
+              size={25}
+              color={color}
+            />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 };
