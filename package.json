@@ -21,11 +21,8 @@
     "expo-font": "~10.0.4",
     "expo-status-bar": "~1.2.0",
     "formik": "^2.2.9",
-<<<<<<< HEAD
     "lottie-react-native": "5.0.1",
-=======
     "native-base": "^3.3.5",
->>>>>>> cf8eeaea6f5a117a0c8340f545213ad057de2046
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
