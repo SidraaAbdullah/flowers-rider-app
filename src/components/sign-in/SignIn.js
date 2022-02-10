@@ -30,7 +30,7 @@ const SignIn = () => {
       {
         onSuccess: async (res) => {
           axios.defaults.headers.common.Authorization = `bearer ${res.data?.access_token}`;
-          await AsyncStorage.setItem("logIn", JSON.stringify(res.data));
+          await AsyncStorage.setItem("da_logIn", JSON.stringify(res.data));
           // handleAddUser(res.data);
           navigation.replace("home");
           // if (cart) {

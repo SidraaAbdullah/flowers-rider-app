@@ -2,16 +2,25 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import BottomTab from "./BottomTab";
 import * as Screen from "../screens";
+import useStorage from "../hooks/useStorage";
+import AppLoading from "expo-app-loading";
 
 const RootNavigator = () => {
+  const [user, isLoading] = useStorage("da_logIn", { isObject: true });
   const Stack = createStackNavigator();
+  if (isLoading) return <AppLoading />;
   return (
     <Stack.Navigator
       initialRouteName="signUp"
       screenOptions={{ headerShown: false }}
     >
-      <Stack.Screen name="signUp" component={Screen.SignUpScreen} />
-      <Stack.Screen name="signIn" component={Screen.SignInScreen} />
+      {!user.access_token && (
+        <React.Fragment>
+          <Stack.Screen name="signUp" component={Screen.SignUpScreen} />
+          <Stack.Screen name="signIn" component={Screen.SignInScreen} />
+        </React.Fragment>
+      )}
+
       <Stack.Screen name="home" component={BottomTab} />
       <Stack.Screen
         name="orderDetail"
@@ -20,6 +29,7 @@ const RootNavigator = () => {
           headerShown: true,
           title: "Order # 43434",
           headerTitleAlign: "center",
+          headerBackTitle: " ",
         })}
       />
     </Stack.Navigator>
