@@ -94,6 +94,9 @@ const SignIn = () => {
             >
               <Text style={style.text}>Forgot Password?</Text>
             </TouchableOpacity> */}
+            <TouchableOpacity onPress={() => navigation.navigate("signUp")}>
+              <Text style={style.text}>Don't have an account? SignUp</Text>
+            </TouchableOpacity>
           </View>
         )}
       </Formik>
@@ -109,7 +112,8 @@ export const style = StyleSheet.create({
   text: {
     color: "gray",
     textAlign: "center",
-    marginTop: 8,
-    fontFamily: "ProximaNovaSemiBold",
+    marginTop: 5,
+    fontSize: 15,
+    fontFamily: "ProximaNova",
   },
 });

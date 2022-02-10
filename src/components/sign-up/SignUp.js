@@ -1,5 +1,11 @@
 import React from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import Input from "../input";
 import { useMutation } from "react-query";
 import { SIGN_UP } from "../../queries";
@@ -16,7 +22,6 @@ const SignUp = ({ navigation }) => {
         email: values.email,
         phone_number: values.phoneNumber,
         password: values.password,
-        cpassword: values.confirm_password,
       },
       {
         onSuccess: () => {
@@ -108,6 +113,9 @@ const SignUp = ({ navigation }) => {
             <View style={{ marginVertical: 10 }}>
               <CommonButton onPress={() => handleSubmit()} text="SIGN UP" />
             </View>
+            <TouchableOpacity onPress={() => navigation.navigate("signIn")}>
+              <Text style={style.text}>Already have an account? LogIn</Text>
+            </TouchableOpacity>
           </View>
         )}
       </Formik>
@@ -124,7 +132,8 @@ export const style = StyleSheet.create({
   text: {
     color: "gray",
     textAlign: "center",
-    marginTop: 8,
-    fontFamily: "ProximaNovaSemiBold",
+    marginTop: 5,
+    fontSize: 15,
+    fontFamily: "ProximaNova",
   },
 });

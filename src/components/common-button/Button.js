@@ -18,7 +18,7 @@ export default CommonButton;
 
 const styles = StyleSheet.create({
   text: {
-    fontFamily: "ProximaNova",
+    fontFamily: "ProximaNovaSemiBold",
     fontSize: 15,
     color: "black",
     textAlign: "center",

@@ -1,25 +1,25 @@
 import React from "react";
-import SignIn from "../components/sign-in";
+import SignUp from "../components/sign-up";
 import { View, Image } from "react-native";
 
-const SignInScreen = () => {
+const SignUpScreen = ({ navigation }) => {
   return (
     <View
       style={{
         flex: 1,
         backgroundColor: "white",
-        paddingVertical: 30,
+        paddingTop: 40,
       }}
     >
       <View style={{ alignItems: "center" }}>
         <Image
-          source={require("../assets/images/login.png")}
-          style={{ width: 300, height: 250 }}
+          source={require("../assets/images/signup.png")}
+          style={{ width: 220, height: 200 }}
         />
       </View>
-      <SignIn />
+      <SignUp navigation={navigation} />
     </View>
   );
 };
 
-export { SignInScreen };
+export { SignUpScreen };
