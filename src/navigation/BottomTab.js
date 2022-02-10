@@ -28,7 +28,7 @@ const App = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={Screen.HomeScreen}
+        component={Screen.ProfileScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <Icon
