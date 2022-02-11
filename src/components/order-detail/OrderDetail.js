@@ -11,16 +11,16 @@ const OrderDetail = ({ orderDetails = {} }) => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={{ flex: 1 }}>
-        {(orderDetails.products || []).map((product, index) => (
+        {(orderDetails?.products || []).map((product, index) => (
           <OrderCard details={product} key={index} />
         ))}
         <View style={{ marginVertical: 14 }}>
           <Text style={styles.text}>Special Notes</Text>
-          <Text style={styles.headingText}>{orderDetails.special_note}</Text>
+          <Text style={styles.headingText}>{orderDetails?.special_note}</Text>
         </View>
         <CustomerDetail />
         <AddressDetail
-          deliveryAddress={orderDetails.deliveryAddress}
+          deliveryAddress={orderDetails?.deliveryAddress}
           orderDetails={orderDetails}
         />
         <CashDetail orderDetails={orderDetails} />

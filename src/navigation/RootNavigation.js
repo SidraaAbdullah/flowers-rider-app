@@ -11,15 +11,15 @@ const RootNavigator = () => {
   if (isLoading) return <AppLoading />;
   return (
     <Stack.Navigator
-      initialRouteName="signUp"
+      initialRouteName="signIn"
       screenOptions={{ headerShown: false, headerShadowVisible: false }}
     >
-      {!user.access_token && (
+   
         <React.Fragment>
           <Stack.Screen name="signUp" component={Screen.SignUpScreen} />
           <Stack.Screen name="signIn" component={Screen.SignInScreen} />
         </React.Fragment>
-      )}
+
 
       <Stack.Screen name="home" component={BottomTab} />
       <Stack.Screen

@@ -17,7 +17,7 @@ const AddressDetail = ({ deliveryAddress, orderDetails }) => {
           <Text style={styles.text}>Vendor address</Text>
         </View>
         <Text style={styles.text}>
-          {new Date(orderDetails.createdAt).toLocaleString()}
+          {new Date(orderDetails?.createdAt).toLocaleString()}
         </Text>
       </View>
       <View style={{ marginTop: 18 }}>
@@ -26,7 +26,7 @@ const AddressDetail = ({ deliveryAddress, orderDetails }) => {
           style={[styles.headingText, { fontFamily: "ProximaNova" }]}
           numberOfLines={1}
         >
-          {deliveryAddress.address}
+          {deliveryAddress?.address}
         </Text>
         <Text style={styles.text}>Customer address</Text>
       </View>

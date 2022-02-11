@@ -31,35 +31,27 @@ const CustomerDetail = () => {
             )}
           </Text>
         </View>
+        {expanded && (
+          <View style={{ marginTop: 5 }}>
+            <View style={{ flexDirection: "row", marginVertical: 3 }}>
+              <Image
+                source={{
+                  uri: "https://cci-research.nl/author/aya-fukami/avatar_hu3c18ec414e2e5615db7090f5d5745dd7_17253_270x270_fill_lanczos_center_2.png",
+                }}
+                style={{ width: 50, height: 50, borderRadius: 14 }}
+              />
+              <Text
+                style={[styles.headingText, { marginLeft: 10, marginTop: 2 }]}
+              >
+                Sarmed Rizvi
+              </Text>
+            </View>
+            <View style={{ marginTop: 5 }}>
+              <CustomerCall />
+            </View>
+          </View>
+        )}
       </TouchableOpacity>
-      {expanded && (
-        <View style={{ marginTop: 5 }}>
-          <View style={{ flexDirection: "row", marginVertical: 3 }}>
-            <Image
-              source={{
-                uri: "https://cci-research.nl/author/aya-fukami/avatar_hu3c18ec414e2e5615db7090f5d5745dd7_17253_270x270_fill_lanczos_center_2.png",
-              }}
-              style={{ width: 50, height: 50, borderRadius: 14 }}
-            />
-            <Text
-              style={[
-                styles.headingText,
-                { marginLeft: 10, marginTop: 2, fontFamily: "ProximaNova" },
-              ]}
-            >
-              Sarmed Rizvi
-            </Text>
-          </View>
-          <View style={{ flexDirection: "row", marginTop: 5 }}>
-            <CommonButton
-              style={{ padding: 14, flex: 1, marginRight: 10 }}
-              text="Message"
-              bgColor="white"
-            />
-            <CustomerCall />
-          </View>
-        </View>
-      )}
     </View>
   );
 };
@@ -67,7 +59,7 @@ export { CustomerDetail };
 
 const styles = StyleSheet.create({
   headingText: {
-    fontFamily: "ProximaNovaBold",
+    fontFamily: "ProximaNova",
     fontSize: 16,
     color: "black",
   },
@@ -82,12 +74,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     backgroundColor: "#F7F7FA",
     borderRadius: 10,
-  },
-  icon: {
-    backgroundColor: "#F7F7FA",
-    marginRight: 10,
-    padding: 18,
-    width: 24,
-    height: 16,
   },
 });

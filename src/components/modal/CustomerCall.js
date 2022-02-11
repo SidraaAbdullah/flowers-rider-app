@@ -18,9 +18,10 @@ const CustomerCall = () => {
           padding: 10,
           paddingHorizontal: 18,
           backgroundColor: "white",
+          alignItems: "center",
         }}
       >
-        <Icon name="phone" type="font-awesome" />
+        <Icon name="call-outline" type="ionicon" />
       </TouchableOpacity>
       <Overlay
         overlayStyle={{ borderRadius: 14, padding: 10 }}

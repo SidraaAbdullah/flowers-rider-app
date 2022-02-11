@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+import { Icon } from "react-native-elements";
 
 const CashDetail = ({ orderDetails }) => {
   return (
@@ -7,14 +8,14 @@ const CashDetail = ({ orderDetails }) => {
       <View
         style={{ flexDirection: "row", alignItems: "center", marginBottom: 10 }}
       >
-        <Image style={styles.icon} />
+        <Icon style={styles.icon} name="bicycle" type="ionicon" color="#FABC5A" />
         <Text style={styles.headingText}>Cash on delivery</Text>
       </View>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <Image style={styles.icon} />
+        <Icon style={styles.icon} name="card" type="ionicon" color="#FABC5A" />
         <View style={{ justifyContent: "center" }}>
           <Text style={styles.headingText}>
-            Rs: {orderDetails.delivery_charges}
+            Rs: {orderDetails?.delivery_charges}
           </Text>
           <Text style={styles.text}>Delivery charges</Text>
         </View>
@@ -43,8 +44,7 @@ const styles = StyleSheet.create({
   icon: {
     backgroundColor: "#F7F7FA",
     marginRight: 10,
-    padding: 18,
-    width: 24,
-    height: 16,
+    padding: 8,
+    borderRadius: 10,
   },
 });
