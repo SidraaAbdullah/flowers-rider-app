@@ -11,7 +11,7 @@ const RootNavigator = () => {
   if (isLoading) return <AppLoading />;
   return (
     <Stack.Navigator
-      initialRouteName="signUp"
+      initialRouteName="addLocation"
       screenOptions={{ headerShown: false, headerShadowVisible: false }}
     >
       {!user.access_token && (
@@ -32,6 +32,7 @@ const RootNavigator = () => {
           headerBackTitle: " ",
         })}
       />
+      <Stack.Screen name="addLocation" component={Screen.AddLocationScreen} />
     </Stack.Navigator>
   );
 };

@@ -41,7 +41,7 @@ const Buttons = ({ order_id }) => {
   };
   return (
     <View style={styles.container}>
-      <CommonButton text="Accept" style={{ flex: 1 }} onPress={acceptOrder} />
+      <CommonButton text="Accept" onPress={acceptOrder} />
     </View>
   );
 };
@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "flex-end",
     marginTop: 10,
-    flex: 1,
   },
 });
 export { Buttons };
