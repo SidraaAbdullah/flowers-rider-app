@@ -6,20 +6,17 @@ import { windowWidth } from "../../../constants";
 
 const NewTab = ({ navigation, data }) => {
   return (
-    <React.Fragment>
-      {data.length ? (
-        <FlatList
-          data={data}
-          renderItem={({ item }) => (
-            <OrderCard
-              item={item}
-              onPress={() => navigation.push("orderDetail", item)}
-            />
-          )}
-          ItemSeparatorComponent={() => <View style={{ marginBottom: 16 }} />}
-          keyExtractor={({ index }) => index}
+    <FlatList
+      data={data}
+      renderItem={({ item }) => (
+        <OrderCard
+          item={item}
+          onPress={() => navigation.push("orderDetail", item)}
         />
-      ) : (
+      )}
+      ItemSeparatorComponent={() => <View style={{ marginBottom: 16 }} />}
+      keyExtractor={({ index }) => index}
+      ListEmptyComponent={() => (
         <LottieView
           source={require("../../../assets/lotties/70780-no-result-found.json")}
           autoPlay
@@ -27,7 +24,7 @@ const NewTab = ({ navigation, data }) => {
           style={{ width: windowWidth }}
         />
       )}
-    </React.Fragment>
+    />
   );
 };
 export { NewTab };
