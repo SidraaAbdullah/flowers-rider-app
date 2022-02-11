@@ -1,13 +1,14 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
-const OrderCard = () => {
+const OrderCard = ({ details }) => {
+  const originalProduct = details.product_id;
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         <Image
           source={{
-            uri: "https://bakeryonline.pk/wp-content/uploads/2020/08/bouquet-of-1-dozen-roses.jpg",
+            uri: originalProduct.image,
           }}
           style={{ width: 70, height: 70 }}
         />
@@ -19,12 +20,11 @@ const OrderCard = () => {
               justifyContent: "space-between",
             }}
           >
-            <Text style={styles.headingText}>Flower name</Text>
-            <Text style={styles.headingText}>Rs:100</Text>
+            <Text style={styles.headingText}>{originalProduct.name}</Text>
+            <Text style={styles.headingText}>{details.price} Rs</Text>
           </View>
-
           <Text style={styles.text}>Flower description</Text>
-          <Text style={styles.text}>x1</Text>
+          <Text style={styles.text}>x{details.quantity}</Text>
         </View>
       </View>
     </View>

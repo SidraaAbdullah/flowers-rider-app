@@ -1,27 +1,34 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
-const AddressDetail = () => {
+const AddressDetail = ({ deliveryAddress, orderDetails }) => {
   return (
     <View style={styles.container}>
-      <View>
+      <View
+        style={{
+          flexDirection: "row",
+          flex: 1,
+          justifyContent: "space-between",
+        }}
+      >
         <View>
           <Text style={styles.headingText}>From</Text>
-          <Text style={[styles.headingText, { fontFamily: "ProximaNova" }]}>
-            Jauhar
-          </Text>
+          <Text style={[styles.headingText]}>Jauhar</Text>
           <Text style={styles.text}>Vendor address</Text>
         </View>
-        <View style={{ marginTop: 18 }}>
-          <Text style={styles.headingText}>To</Text>
-          <Text style={[styles.headingText, { fontFamily: "ProximaNova" }]}>
-            Gulshan
-          </Text>
-          <Text style={styles.text}>Customer address</Text>
-        </View>
+        <Text style={styles.text}>
+          {new Date(orderDetails.createdAt).toLocaleString()}
+        </Text>
       </View>
-      <View>
-        <Text style={styles.text}>Feb 09, 2022</Text>
+      <View style={{ marginTop: 18 }}>
+        <Text style={styles.headingText}>To</Text>
+        <Text
+          style={[styles.headingText, { fontFamily: "ProximaNova" }]}
+          numberOfLines={1}
+        >
+          {deliveryAddress.address}
+        </Text>
+        <Text style={styles.text}>Customer address</Text>
       </View>
     </View>
   );
@@ -30,7 +37,7 @@ export { AddressDetail };
 
 const styles = StyleSheet.create({
   headingText: {
-    fontFamily: "ProximaNovaBold",
+    fontFamily: "ProximaNova",
     fontSize: 16,
     color: "black",
     marginBottom: 2,
@@ -41,11 +48,11 @@ const styles = StyleSheet.create({
     color: "#818C99",
   },
   container: {
-    justifyContent: "space-between",
+    // justifyContent: "space-between",
     marginBottom: 14,
     backgroundColor: "#F7F7FA",
     borderRadius: 10,
-    flexDirection: "row",
+    // flexDirection: "row",
     padding: 12,
     paddingHorizontal: 14,
   },

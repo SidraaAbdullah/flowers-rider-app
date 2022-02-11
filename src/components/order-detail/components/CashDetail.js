@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
-const CashDetail = () => {
+const CashDetail = ({ orderDetails }) => {
   return (
     <View style={styles.container}>
       <View
@@ -13,7 +13,9 @@ const CashDetail = () => {
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         <Image style={styles.icon} />
         <View style={{ justifyContent: "center" }}>
-          <Text style={styles.headingText}>Rs: 30</Text>
+          <Text style={styles.headingText}>
+            Rs: {orderDetails.delivery_charges}
+          </Text>
           <Text style={styles.text}>Delivery charges</Text>
         </View>
       </View>

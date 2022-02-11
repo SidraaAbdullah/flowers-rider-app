@@ -9,8 +9,8 @@ import { PATCH_DRIVER_UPDATE } from "../queries/driver";
 const HomeScreen = ({ navigation }) => {
   const { mutate: patchUpdateDelivery } = useMutation(PATCH_DRIVER_UPDATE);
   const [user, loading] = useStorage("da_logIn", { isObject: true });
-  const [isEnabled, setIsEnabled] = useState(true);
-  useQuery("/driver", {
+  const [isEnabled, setIsEnabled] = useState(false);
+  const { isLoading: driverLoad } = useQuery("/driver", {
     onSuccess: (res) => {
       setIsEnabled(res.data[0] && res.data[0].availableForDelivery);
     },
@@ -49,17 +49,25 @@ const HomeScreen = ({ navigation }) => {
             paddingRight: 5,
           }}
         >
-          <Text
-            style={{ fontSize: 16, fontFamily: "ProximaNova", marginRight: 20 }}
-          >
-            Available for delivery
-          </Text>
-          <Switch
-            trackColor={{ false: "#F7F7FA", true: "#FABC5A" }}
-            thumbColor={isEnabled ? "white" : "#F7F7FA"}
-            onValueChange={handleAvailableDelivery}
-            value={isEnabled}
-          />
+          {!driverLoad && (
+            <React.Fragment>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontFamily: "ProximaNova",
+                  marginRight: 20,
+                }}
+              >
+                Available for delivery
+              </Text>
+              <Switch
+                trackColor={{ false: "#F7F7FA", true: "#FABC5A" }}
+                thumbColor={isEnabled ? "white" : "#F7F7FA"}
+                onValueChange={handleAvailableDelivery}
+                value={isEnabled}
+              />
+            </React.Fragment>
+          )}
         </View>
       </View>
       <Home navigation={navigation} />

@@ -15,3 +15,8 @@ export const VERIFY_USER = async (e) => {
   const res = await axios.post(BASE_URL + "/verify-user");
   return res.data;
 };
+
+export const USER_UPDATE = async (e) => {
+  const res = await axios.patch(BASE_URL + "/user", e);
+  return res.data;
+};
