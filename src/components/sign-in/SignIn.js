@@ -9,6 +9,7 @@ import { useMutation } from "react-query";
 import { Formik } from "formik";
 import { signInInitialValues, signInValidationSchema } from "../../constants";
 import CommonButton from "../common-button";
+import { showToast } from "../../util/toast";
 // import { addUser } from "../../../redux/actions/User";
 //import { useDispatch } from "react-redux";
 
@@ -31,16 +32,12 @@ const SignIn = () => {
         onSuccess: async (res) => {
           axios.defaults.headers.common.Authorization = `bearer ${res.data?.access_token}`;
           await AsyncStorage.setItem("da_logIn", JSON.stringify(res.data));
-          // handleAddUser(res.data);
           navigation.replace("home");
-          // if (cart) {
-          //   navigation.replace("home", { cart });
-          // } else {
-          //   navigation.replace("home");
-          // }
+          showToast("Successful login", "success");
         },
         onError: (e) => {
-          alert("Please enter correct email or password");
+          showToast("Please enter correct email or password", "danger");
+          alert();
         },
       }
     );

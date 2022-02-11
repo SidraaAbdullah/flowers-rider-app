@@ -41,11 +41,6 @@ const Buttons = ({ order_id }) => {
   };
   return (
     <View style={styles.container}>
-      <CommonButton
-        text="Reject"
-        bgColor="#F7F7FA"
-        style={{ flex: 1, marginRight: 12 }}
-      />
       <CommonButton text="Accept" style={{ flex: 1 }} onPress={acceptOrder} />
     </View>
   );

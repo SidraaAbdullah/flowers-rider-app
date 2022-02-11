@@ -2,20 +2,22 @@ import React from "react";
 import { StyleSheet, View, Text, ScrollView } from "react-native";
 import { OrderCard, CashDetail, AddressDetail } from "./components";
 
-const OrderDetail = () => {
+const OrderDetail = ({ orderDetails = {} }) => {
   return (
     <ScrollView>
       <View style={{ flex: 1 }}>
-        <OrderCard />
-        <OrderCard />
+        {(orderDetails.products || []).map((product, index) => (
+          <OrderCard details={product} key={index} />
+        ))}
         <View style={{ marginVertical: 14 }}>
           <Text style={styles.text}>Special Notes</Text>
-          <Text style={styles.headingText}>
-            Can you please make the whole order without the bow.
-          </Text>
+          <Text style={styles.headingText}>{orderDetails.special_note}</Text>
         </View>
-        <AddressDetail />
-        <CashDetail />
+        <AddressDetail
+          deliveryAddress={orderDetails.deliveryAddress}
+          orderDetails={orderDetails}
+        />
+        <CashDetail orderDetails={orderDetails} />
       </View>
     </ScrollView>
   );

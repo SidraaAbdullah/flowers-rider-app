@@ -55,7 +55,7 @@ const OrderDetailScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.primaryContainer}>
-        <OrderDetail />
+        <OrderDetail orderDetails={order && order.data[0]} />
         <Buttons order_id={_id} />
       </View>
     </SafeAreaView>
