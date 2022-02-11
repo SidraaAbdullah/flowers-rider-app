@@ -17,6 +17,7 @@ export const VERIFY_USER = async (e) => {
 };
 
 export const USER_UPDATE = async (e) => {
-  const res = await axios.patch(BASE_URL + "/user", e);
+  const res = await axios.patch(BASE_URL + "/driver", e);
+  console.log(res.data, "::res", e);
   return res.data;
 };

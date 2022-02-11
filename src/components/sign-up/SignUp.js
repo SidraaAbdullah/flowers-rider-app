@@ -25,7 +25,7 @@ const SignUp = ({ navigation }) => {
       },
       {
         onSuccess: () => {
-          navigation.replace("home");
+          navigation.replace("login");
           resetForm();
         },
         onError: () => {

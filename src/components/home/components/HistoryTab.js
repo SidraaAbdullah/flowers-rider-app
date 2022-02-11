@@ -6,73 +6,63 @@ import { ORDER_STATUSES, windowWidth } from "../../../constants";
 import colors from "../../../constants/colors";
 import OrderCard from "./OrderCard";
 import LottieView from "lottie-react-native";
+import { FlatList } from "react-native";
 
-const HistoryTab = ({ navigation, data }) => {
+const HistoryTab = ({ data }) => {
+  const details = {
+    [ORDER_STATUSES.CANCELLED]: {
+      name: "cancelled",
+      color: "red",
+      iconName: "cancel",
+    },
+    [ORDER_STATUSES.DELIVERED]: {
+      name: "delivered",
+      color: colors.secondaryShade,
+      iconName: "check-circle",
+    },
+  };
   return (
     <React.Fragment>
-      {data.length ? (
-        <ScrollView>
-          {data.map((item, index) => (
-            <TouchableOpacity style={styles.container}>
-              <React.Fragment key={index}>
-                <OrderCard item={item} />
-                <View
-                  style={{
-                    borderTopColor: "lightgray",
-                    borderTopWidth: 1,
-                    borderStyle: "solid",
-                    alignItems: "center",
-                    flexDirection: "row",
-                    justifyContent: "space-around",
-                    paddingTop: 15,
-                  }}
-                >
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Icon
-                      name={
-                        item.status === ORDER_STATUSES.CANCELLED
-                          ? "cancel"
-                          : "check-circle"
-                      }
-                      color={
-                        item.status === ORDER_STATUSES.CANCELLED
-                          ? "red"
-                          : colors.secondaryShade
-                      }
-                      type="material-icons"
-                    />
-                    <Text
-                      style={[styles.text, { marginLeft: 10, fontSize: 16 }]}
-                    >
-                      Order{" "}
-                      {item.status === ORDER_STATUSES.CANCELLED
-                        ? "cancelled"
-                        : "delivered"}
-                    </Text>
-                  </View>
-
-                  {!item.status === ORDER_STATUSES.CANCELLED && (
-                    <View style={{ flexDirection: "row" }}>
-                      <Icon name="star" color="#FABC5A" type="font-awesome" />
-                      <Icon name="star" color="#FABC5A" type="font-awesome" />
-                      <Icon name="star" color="#FABC5A" type="font-awesome" />
-                      <Icon name="star" color="#FABC5A" type="font-awesome" />
-                      <Icon name="star" color="lightgray" type="font-awesome" />
-                    </View>
-                  )}
+      <FlatList
+        keyExtractor={({ index }) => index}
+        data={data}
+        renderItem={({ item, index }) => (
+          <TouchableOpacity style={styles.container} key={index}>
+            <React.Fragment>
+              <OrderCard item={item} />
+              <View style={styles.bottomContainer}>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <Icon
+                    name={details[item.status].iconName}
+                    color={details[item.status].color}
+                    type="material-icons"
+                  />
+                  <Text style={[styles.text, { marginLeft: 10, fontSize: 16 }]}>
+                    Order {details[item.status].name}
+                  </Text>
                 </View>
-              </React.Fragment>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-      ) : (
-        <LottieView
-          source={require("../../../assets/lotties/70780-no-result-found.json")}
-          autoPlay
-          loop
-          style={{ width: windowWidth }}
-        />
-      )}
+                {!(item.status === ORDER_STATUSES.CANCELLED) && (
+                  <View style={{ flexDirection: "row" }}>
+                    <Icon name="star" color="#FABC5A" type="font-awesome" />
+                    <Icon name="star" color="#FABC5A" type="font-awesome" />
+                    <Icon name="star" color="#FABC5A" type="font-awesome" />
+                    <Icon name="star" color="#FABC5A" type="font-awesome" />
+                    <Icon name="star" color="lightgray" type="font-awesome" />
+                  </View>
+                )}
+              </View>
+            </React.Fragment>
+          </TouchableOpacity>
+        )}
+        ListEmptyComponent={() => (
+          <LottieView
+            source={require("../../../assets/lotties/70780-no-result-found.json")}
+            autoPlay
+            loop
+            style={{ width: windowWidth }}
+          />
+        )}
+      />
     </React.Fragment>
   );
 };
@@ -94,5 +84,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",
+  },
+  bottomContainer: {
+    borderTopColor: "lightgray",
+    borderTopWidth: 1,
+    borderStyle: "solid",
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    paddingTop: 15,
   },
 });

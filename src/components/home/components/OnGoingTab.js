@@ -7,6 +7,7 @@ import {
   ScrollView,
   Image,
   Dimensions,
+  FlatList,
 } from "react-native";
 import colors from "../../../constants/colors";
 import OrderCard from "./OrderCard";
@@ -15,37 +16,37 @@ import { windowWidth } from "../../../constants";
 
 const OnGoingTab = ({ navigation, data }) => {
   return (
-    <React.Fragment>
-      {!data.length ? (
+    <FlatList
+      data={data}
+      ListEmptyComponent={() => (
         <LottieView
           source={require("../../../assets/lotties/70780-no-result-found.json")}
           autoPlay
           loop
           style={{ width: windowWidth }}
         />
-      ) : (
-        <ScrollView>
-          {data.map((item, index) => (
-            <View style={styles.container}>
-              <React.Fragment key={index}>
-                <OrderCard item={item} />
-                <View
-                  style={{
-                    borderTopColor: "lightgray",
-                    borderTopWidth: 1,
-                    borderStyle: "solid",
-                    alignItems: "center",
-                    paddingTop: 15,
-                  }}
-                >
-                  <Text style={[styles.text, { fontSize: 16 }]}>Flower</Text>
-                </View>
-              </React.Fragment>
-            </View>
-          ))}
-        </ScrollView>
       )}
-    </React.Fragment>
+      renderItem={({ item, index }) => (
+        <View style={styles.container}>
+          <React.Fragment>
+            <OrderCard item={item} />
+            <View
+              style={{
+                borderTopColor: "lightgray",
+                borderTopWidth: 1,
+                borderStyle: "solid",
+                alignItems: "center",
+                paddingTop: 15,
+              }}
+            >
+              <Text style={[styles.text, { fontSize: 16 }]}>Flower</Text>
+            </View>
+          </React.Fragment>
+        </View>
+      )}
+      ItemSeparatorComponent={() => <View style={{ marginBottom: 16 }} />}
+      keyExtractor={({ index }) => index}
+    />
   );
 };
 export { OnGoingTab };

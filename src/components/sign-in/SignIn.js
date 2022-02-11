@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Input from "../input";
-import { SIGN_IN } from "../../queries";
+import { SIGN_IN, USER_UPDATE } from "../../queries";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useMutation } from "react-query";
@@ -10,17 +10,11 @@ import { Formik } from "formik";
 import { signInInitialValues, signInValidationSchema } from "../../constants";
 import CommonButton from "../common-button";
 import { showToast } from "../../util/toast";
-// import { addUser } from "../../../redux/actions/User";
-//import { useDispatch } from "react-redux";
+import { registerForPushNotificationsAsync } from "../../util/common";
 
 const SignIn = () => {
   const navigation = useNavigation();
   const { mutate: signIn } = useMutation(SIGN_IN);
-  // const { cart } = route?.params || {};
-  //const dispatch = useDispatch();
-  // const handleAddUser = (item) => {
-  //   dispatch(addUser(item));
-  // };
 
   const handleLogin = async (values) => {
     await signIn(
@@ -34,6 +28,10 @@ const SignIn = () => {
           await AsyncStorage.setItem("da_logIn", JSON.stringify(res.data));
           navigation.replace("home");
           showToast("Successful login", "success");
+          const token = await registerForPushNotificationsAsync();
+          await USER_UPDATE({
+            expo_notification_token: token,
+          });
         },
         onError: (e) => {
           showToast("Please enter correct email or password", "danger");
@@ -58,7 +56,7 @@ const SignIn = () => {
           touched,
           handleSubmit,
         }) => (
-          <View>
+          <React.Fragment>
             <Input
               label="Email"
               iconName="mail"
@@ -86,15 +84,10 @@ const SignIn = () => {
             <View style={{ marginVertical: 10 }}>
               <CommonButton onPress={() => handleSubmit()} text=" LOG IN" />
             </View>
-            {/* <TouchableOpacity
-              onPress={() => navigation.navigate("forgotPassword")}
-            >
-              <Text style={style.text}>Forgot Password?</Text>
-            </TouchableOpacity> */}
             <TouchableOpacity onPress={() => navigation.navigate("signUp")}>
               <Text style={style.text}>Don't have an account? SignUp</Text>
             </TouchableOpacity>
-          </View>
+          </React.Fragment>
         )}
       </Formik>
     </View>
