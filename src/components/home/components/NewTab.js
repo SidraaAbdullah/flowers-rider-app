@@ -6,11 +6,16 @@ import { windowWidth } from "../../../constants";
 
 const NewTab = ({ navigation, data }) => {
   return (
-    <>
+    <React.Fragment>
       {data.length ? (
         <FlatList
           data={data}
-          renderItem={({ item }) => <OrderCard item={item} />}
+          renderItem={({ item }) => (
+            <OrderCard
+              item={item}
+              onPress={() => navigation.push("orderDetail", item)}
+            />
+          )}
           ItemSeparatorComponent={() => <View style={{ marginBottom: 16 }} />}
           keyExtractor={({ index }) => index}
         />
@@ -22,7 +27,7 @@ const NewTab = ({ navigation, data }) => {
           style={{ width: windowWidth }}
         />
       )}
-    </>
+    </React.Fragment>
   );
 };
 export { NewTab };

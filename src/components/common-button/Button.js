@@ -1,12 +1,13 @@
 import React from "react";
 import { TouchableOpacity, StyleSheet, Text } from "react-native";
 
-const CommonButton = ({ onPress, bgColor, text, width }) => {
+const CommonButton = ({ onPress, bgColor, text, width, style }) => {
   return (
     <TouchableOpacity
       style={[
         styles.container,
         { backgroundColor: bgColor || "#FABC5A", width: width || "100%" },
+        style,
       ]}
       onPress={onPress}
     >
