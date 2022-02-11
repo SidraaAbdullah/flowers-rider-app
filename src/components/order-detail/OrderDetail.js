@@ -1,10 +1,15 @@
 import React from "react";
 import { StyleSheet, View, Text, ScrollView } from "react-native";
-import { OrderCard, CashDetail, AddressDetail } from "./components";
+import {
+  OrderCard,
+  CashDetail,
+  AddressDetail,
+  CustomerDetail,
+} from "./components";
 
 const OrderDetail = () => {
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <View style={{ flex: 1 }}>
         <OrderCard />
         <OrderCard />
@@ -14,6 +19,7 @@ const OrderDetail = () => {
             Can you please make the whole order without the bow.
           </Text>
         </View>
+        <CustomerDetail />
         <AddressDetail />
         <CashDetail />
       </View>
