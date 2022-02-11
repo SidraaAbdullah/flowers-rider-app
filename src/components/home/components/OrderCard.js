@@ -2,12 +2,9 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import colors from "../../../constants/colors";
 
-const OrderCard = ({ item = {}, style }) => {
+const OrderCard = ({ item = {}, style, onPress }) => {
   return (
-    <TouchableOpacity
-      //   onPress={() => navigation.navigate("orderDetail")}
-      style={[styles.container, style]}
-    >
+    <TouchableOpacity onPress={onPress} style={[styles.container, style]}>
       <View>
         <View style={[styles.flex, { paddingBottom: 4 }]}>
           <Text style={styles.text}>Order # {item?.uid} </Text>

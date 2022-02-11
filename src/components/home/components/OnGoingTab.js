@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.greyShade2,
     paddingBottom: 16,
     borderRadius: 12,
+    marginBottom: 16,
   },
   flex: {
     justifyContent: "space-between",

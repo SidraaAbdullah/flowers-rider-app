@@ -12,7 +12,7 @@ const RootNavigator = () => {
   return (
     <Stack.Navigator
       initialRouteName="signUp"
-      screenOptions={{ headerShown: false }}
+      screenOptions={{ headerShown: false, headerShadowVisible: false }}
     >
       {!user.access_token && (
         <React.Fragment>
@@ -25,9 +25,9 @@ const RootNavigator = () => {
       <Stack.Screen
         name="orderDetail"
         component={Screen.OrderDetailScreen}
-        options={() => ({
+        options={(props) => ({
           headerShown: true,
-          title: "Order # 43434",
+          title: `Order # ${props.route.params?.uid}`,
           headerTitleAlign: "center",
           headerBackTitle: " ",
         })}

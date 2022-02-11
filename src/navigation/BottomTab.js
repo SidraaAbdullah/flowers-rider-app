@@ -15,6 +15,7 @@ const App = () => {
         headerTitleAlign: "center",
         tabBarActiveTintColor: "black",
         tabBarInactiveTintColor: "gray",
+        headerShadowVisible: false,
       })}
     >
       <Tab.Screen
