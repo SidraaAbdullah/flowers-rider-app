@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
+import { windowWidth } from "../constants";
 
 const AddLocationScreen = ({ navigation }) => {
   return (
@@ -14,7 +15,7 @@ const AddLocationScreen = ({ navigation }) => {
     >
       <Image
         source={require("../assets/images/add_address.png")}
-        style={{ height: 300, width: 300 }}
+        style={{ height: windowWidth, width: windowWidth }}
       />
       <TouchableOpacity
         style={{
