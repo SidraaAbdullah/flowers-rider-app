@@ -52,7 +52,7 @@ const App = () => {
     registerForPushNotificationsAsync().then(async (token) => {
       let user = await AsyncStorageLib.getItem("da_logIn");
       axios.defaults.headers.common.Authorization = `bearer ${user?.access_token}`;
-      if (user) {
+      if (user?.access_token) {
         await USER_UPDATE({
           expo_notification_token: token,
         });
