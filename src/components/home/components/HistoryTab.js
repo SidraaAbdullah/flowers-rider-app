@@ -11,7 +11,7 @@ const HistoryTab = ({ navigation, data }) => {
   return (
     <React.Fragment>
       {data.length ? (
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           {data.map((item, index) => (
             <TouchableOpacity style={styles.container}>
               <React.Fragment key={index}>

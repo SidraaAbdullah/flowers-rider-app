@@ -24,7 +24,7 @@ const OnGoingTab = ({ navigation, data }) => {
           style={{ width: windowWidth }}
         />
       ) : (
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           {data.map((item, index) => (
             <View style={styles.container}>
               <React.Fragment key={index}>

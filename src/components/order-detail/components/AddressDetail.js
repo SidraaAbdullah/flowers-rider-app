@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
   container: {
     // justifyContent: "space-between",
-    marginBottom: 14,
+    marginVertical: 7,
     backgroundColor: "#F7F7FA",
     borderRadius: 10,
     // flexDirection: "row",

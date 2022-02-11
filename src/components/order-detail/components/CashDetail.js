@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   container: {
-    marginBottom: 14,
+    marginVertical: 7,
   },
   icon: {
     backgroundColor: "#F7F7FA",

@@ -14,10 +14,12 @@ const OrderDetail = ({ orderDetails = {} }) => {
         {(orderDetails?.products || []).map((product, index) => (
           <OrderCard details={product} key={index} />
         ))}
-        <View style={{ marginVertical: 14 }}>
-          <Text style={styles.text}>Special Notes</Text>
-          <Text style={styles.headingText}>{orderDetails?.special_note}</Text>
-        </View>
+        {orderDetails?.special_note && (
+          <View style={{ marginVertical: 7 }}>
+            <Text style={styles.text}>Special Notes</Text>
+            <Text style={styles.headingText}>{orderDetails?.special_note}</Text>
+          </View>
+        )}
         <CustomerDetail />
         <AddressDetail
           deliveryAddress={orderDetails?.deliveryAddress}

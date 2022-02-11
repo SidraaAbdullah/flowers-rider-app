@@ -15,7 +15,7 @@ const OrderCard = ({ item = {}, style, onPress }) => {
         <Text
           style={[
             styles.text,
-            { color: colors.primaryShade, paddingBottom: 12 },
+            { color: colors.primaryShade, paddingBottom: 12 , fontFamily:'ProximaNovaSemiBold'},
           ]}
         >
           {item.products?.length} item
