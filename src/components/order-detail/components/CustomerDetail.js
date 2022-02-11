@@ -1,41 +1,87 @@
-import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
-import { Picker } from "native-base";
+import React, { useState } from "react";
+import { Icon } from "react-native-elements";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import CommonButton from "../../common-button";
+import CustomerCall from "../../modal/CustomerCall";
+
 const CustomerDetail = () => {
+  const [expanded, setExpanded] = useState(false);
+
   return (
-    <Picker
-      mode="dropdown"
-      iosHeader="Jour de la semaine"
-      style={{ height: 50, paddingHorizontal: 8, width: "100%" }}
-      textStyle={{ width: "100%" }}
-    >
-      <Picker.Item label={"monday"} value={"Monday"} />
-      <Picker.Item label={"tuesday"} value={"Tuesday"} />
-      <Picker.Item label={"wednesday"} value={"Wednesday"} />
-      <Picker.Item label={"thursday"} value={"Thursday"} />
-      <Picker.Item label={"friday"} value={"Friday"} />
-      <Picker.Item label={"saturday"} value={"Saturday"} />
-      <Picker.Item label={"sunday"} value={"Sunday"} />
-    </Picker>
+    <View style={styles.container}>
+      <TouchableOpacity
+        activeOpacity={1}
+        onPress={() => {
+          setExpanded(!expanded);
+        }}
+      >
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <Text style={styles.headingText}>Customer</Text>
+          <Text>
+            {expanded ? (
+              <Icon name="angle-down" type="font-awesome" />
+            ) : (
+              <Icon name="angle-up" type="font-awesome" />
+            )}
+          </Text>
+        </View>
+      </TouchableOpacity>
+      {expanded && (
+        <View style={{ marginTop: 5 }}>
+          <View style={{ flexDirection: "row", marginVertical: 3 }}>
+            <Image
+              source={{
+                uri: "https://cci-research.nl/author/aya-fukami/avatar_hu3c18ec414e2e5615db7090f5d5745dd7_17253_270x270_fill_lanczos_center_2.png",
+              }}
+              style={{ width: 50, height: 50, borderRadius: 14 }}
+            />
+            <Text
+              style={[
+                styles.headingText,
+                { marginLeft: 10, marginTop: 2, fontFamily: "ProximaNova" },
+              ]}
+            >
+              Sarmed Rizvi
+            </Text>
+          </View>
+          <View style={{ flexDirection: "row", marginTop: 5 }}>
+            <CommonButton
+              style={{ padding: 14, flex: 1, marginRight: 10 }}
+              text="Message"
+              bgColor="white"
+            />
+            <CustomerCall />
+          </View>
+        </View>
+      )}
+    </View>
   );
 };
 export { CustomerDetail };
 
 const styles = StyleSheet.create({
   headingText: {
-    fontFamily: "ProximaNova",
+    fontFamily: "ProximaNovaBold",
     fontSize: 16,
     color: "black",
-    marginBottom: 2,
   },
   text: {
     fontFamily: "ProximaNova",
     fontSize: 15,
     color: "#818C99",
-    marginBottom: 2,
   },
   container: {
     marginBottom: 14,
+    padding: 12,
+    paddingHorizontal: 14,
+    backgroundColor: "#F7F7FA",
+    borderRadius: 10,
   },
   icon: {
     backgroundColor: "#F7F7FA",
