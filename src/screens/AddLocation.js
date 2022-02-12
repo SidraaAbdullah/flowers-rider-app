@@ -1,7 +1,8 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
 import { windowWidth } from "../constants";
+import LottieView from "lottie-react-native";
 
 const AddLocationScreen = ({ navigation }) => {
   return (
@@ -13,9 +14,11 @@ const AddLocationScreen = ({ navigation }) => {
         flex: 1,
       }}
     >
-      <Image
-        source={require("../assets/images/add_address.png")}
-        style={{ height: windowWidth, width: windowWidth }}
+      <LottieView
+        source={require("../assets/lotties/4199-location-search.json")}
+        autoPlay
+        loop
+        style={{ width: windowWidth }}
       />
       <TouchableOpacity
         style={{
@@ -23,18 +26,19 @@ const AddLocationScreen = ({ navigation }) => {
           alignItems: "center",
           justifyContent: "center",
           marginVertical: 20,
+          marginTop: 50,
           padding: 8,
-          paddingHorizontal: 20,
+          paddingLeft: 25,
           backgroundColor: "#FABC5A",
-          borderRadius: 8,
+          borderRadius: 30,
         }}
         onPress={() => navigation.navigate("home")}
       >
         <Text
           style={{
             fontFamily: "ProximaNova",
-            fontSize: 18,
-            marginRight: 8,
+            fontSize: 16,
+            marginRight: 18,
             color: "black",
           }}
         >

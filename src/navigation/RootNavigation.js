@@ -11,7 +11,7 @@ const RootNavigator = () => {
   if (isLoading) return <AppLoading />;
   return (
     <Stack.Navigator
-      initialRouteName="addLocation"
+      initialRouteName="signIn"
       screenOptions={{ headerShown: false, headerShadowVisible: false }}
     >
       {!user.access_token && (

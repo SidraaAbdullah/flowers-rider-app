@@ -1,36 +1,42 @@
 import React, { useState } from "react";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, Alert } from "react-native";
 import CommonButton from "../common-button";
 import Input from "../input";
 import { Avatar } from "react-native-elements";
-// import { useMutation } from "react-query";
-// import { UPDATE_USER_PROFILE } from "../../../queries";
-// import { useNavigation } from "@react-navigation/native";
+import { useMutation, useQuery } from "react-query";
+import { PATCH_PROFILE_UPDATE } from "../../queries";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const Profile = () => {
-  //   const navigation = useNavigation();
-  //   const { mutate: updateUser } = useMutation(UPDATE_USER_PROFILE);
-  const [email, setEmail] = useState("sidraabdullah56@gmail.com");
-  const [name, setName] = useState("Sidra Abdullah");
-  const [number, setNumber] = useState("090078601");
-  //   const handleUpdateUser = async () => {
-  //     await updateUser(
-  //       { name, email, phone_number: number },
-  //       {
-  //         onSuccess: () => {
-  //           Alert.alert("User profile has been updated.", "", [
-  //             {
-  //               text: "OK",
-  //               onPress: () => navigation.navigate("profile"),
-  //             },
-  //           ]);
-  //         },
-  //         onError: () => {
-  //           Alert.alert("Failed to update user profile.");
-  //         },
-  //       }
-  //     );
-  //   };
+const Profile = ({ navigation }) => {
+  const { mutate: updateDriver } = useMutation(PATCH_PROFILE_UPDATE);
+  const { data: update, refetch } = useQuery("/driver", {
+    onSuccess: async (res) => {
+      await AsyncStorage.setItem("da_logIn", JSON.stringify(res.data[0]));
+    },
+  });
+  const [email, setEmail] = useState(update?.data[0].email);
+  const [name, setName] = useState(update?.data[0].name);
+  const [number, setNumber] = useState(update?.data[0].phone_number);
+  const handleUpdateUser = async () => {
+    await updateDriver(
+      { name, email, phone_number: number },
+      {
+        onSuccess: async (res) => {
+          refetch();
+          Alert.alert("User profile has been updated.", "", [
+            {
+              text: "OK",
+              onPress: () => navigation.navigate("home", { screen: "profile" }),
+            },
+          ]);
+        },
+        onError: () => {
+          Alert.alert("Failed to update user profile.");
+        },
+      }
+    );
+  };
+
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
       <View
@@ -76,10 +82,7 @@ const Profile = () => {
             keyboardType="email-address"
           />
           <View style={{ marginTop: 10 }}>
-            <CommonButton
-              text="Save"
-              //   onPress={() => handleUpdateUser()}
-            />
+            <CommonButton text="Save" onPress={() => handleUpdateUser()} />
           </View>
         </View>
       </ScrollView>
