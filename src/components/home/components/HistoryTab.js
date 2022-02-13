@@ -27,7 +27,11 @@ const HistoryTab = ({ data }) => {
         keyExtractor={({ index }) => index}
         data={data}
         renderItem={({ item, index }) => (
-          <TouchableOpacity style={styles.container} key={index}>
+          <TouchableOpacity
+            style={styles.container}
+            key={index}
+            onPress={() => navigation.push("orderDetail", item)}
+          >
             <React.Fragment>
               <OrderCard item={item} />
               <View style={styles.bottomContainer}>

@@ -16,6 +16,7 @@ import * as Notifications from "expo-notifications";
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import { USER_UPDATE } from "./src/queries";
 import { registerForPushNotificationsAsync } from "./src/util/common";
+import * as Location from "expo-location";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -27,6 +28,7 @@ Notifications.setNotificationHandler({
 
 const App = () => {
   const [notification, setNotification] = useState(false);
+  const [initialScreen, setInitialScreen] = useState("");
   const notificationListener = useRef();
   const responseListener = useRef();
   const [verify, setVerify] = useState({
@@ -48,9 +50,29 @@ const App = () => {
   // FOR FETCHING USER DATA ON LOADING
   useEffect(async () => {
     try {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status === "granted") {
+        let location = await Location.getCurrentPositionAsync({});
+        if (location) {
+          const { latitude, longitude, accuracy, altitude } =
+            location.coords || {};
+          const locationDetails = {
+            latitude,
+            longitude,
+            accuracy,
+            altitude,
+          };
+          await AsyncStorageLib.setItem(
+            "da_location",
+            JSON.stringify(locationDetails)
+          );
+        }
+      } else {
+        setInitialScreen("addLocation");
+      }
       let user = await AsyncStorageLib.getItem("da_logIn");
       user = JSON.parse(user);
-      if (user?.access_token) {
+      if (user?._id) {
         axios.defaults.headers.common.Authorization = `bearer ${user?.access_token}`;
         axios
           .post(BASE_URL + "/verify-user")
@@ -106,7 +128,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>
         <FlashMessage position="top" floating={true} />
-        <RootNavigator />
+        <RootNavigator initialScreen={initialScreen} />
       </NavigationContainer>
     </QueryClientProvider>
   );

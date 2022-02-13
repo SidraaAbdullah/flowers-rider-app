@@ -3,11 +3,8 @@ import {
   Text,
   View,
   StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-  Image,
-  Dimensions,
   FlatList,
+  TouchableOpacity,
 } from "react-native";
 import colors from "../../../constants/colors";
 import OrderCard from "./OrderCard";
@@ -27,7 +24,10 @@ const OnGoingTab = ({ navigation, data }) => {
         />
       )}
       renderItem={({ item, index }) => (
-        <View style={styles.container}>
+        <TouchableOpacity
+          style={styles.container}
+          onPress={() => navigation.push("orderDetail", item)}
+        >
           <React.Fragment>
             <OrderCard item={item} />
             <View
@@ -42,7 +42,7 @@ const OnGoingTab = ({ navigation, data }) => {
               <Text style={[styles.text, { fontSize: 16 }]}>Flower</Text>
             </View>
           </React.Fragment>
-        </View>
+        </TouchableOpacity>
       )}
       ItemSeparatorComponent={() => <View style={{ marginBottom: 16 }} />}
       keyExtractor={({ index }) => index}

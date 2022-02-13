@@ -5,13 +5,13 @@ import * as Screen from "../screens";
 import useStorage from "../hooks/useStorage";
 import AppLoading from "expo-app-loading";
 
-const RootNavigator = () => {
+const RootNavigator = ({ initialScreen }) => {
   const [user, isLoading] = useStorage("da_logIn", { isObject: true });
   const Stack = createStackNavigator();
   if (isLoading) return <AppLoading />;
   return (
     <Stack.Navigator
-      initialRouteName="signIn"
+      initialRouteName={initialScreen || "signIn"}
       screenOptions={{ headerShown: false, headerShadowVisible: false }}
     >
       {!user.access_token && (

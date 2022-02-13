@@ -35,7 +35,6 @@ const SignIn = () => {
         },
         onError: (e) => {
           showToast("Please enter correct email or password", "danger");
-          alert();
         },
       }
     );

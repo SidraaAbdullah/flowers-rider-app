@@ -29,7 +29,7 @@ const SignUp = ({ navigation }) => {
           resetForm();
         },
         onError: () => {
-          alert("This email is already taken.");
+          showToast("This email is already taken.", "danger");
         },
       }
     );
