@@ -23,7 +23,6 @@ const OrderCard = ({ details }) => {
             <Text style={styles.headingText}>{originalProduct.name}</Text>
             <Text style={styles.headingText}>{details.price} Rs</Text>
           </View>
-          <Text style={styles.text}>Flower description</Text>
           <Text style={styles.text}>x{details.quantity}</Text>
         </View>
       </View>

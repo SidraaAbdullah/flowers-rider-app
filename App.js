@@ -125,7 +125,6 @@ const App = () => {
           RootNavigation.navigate(
             response.notification.request.content.data?.path
           );
-          console.log(RootNavigation);
         });
     } catch (error) {
       setVerify({ verify: false, isVerifyLoading: false });

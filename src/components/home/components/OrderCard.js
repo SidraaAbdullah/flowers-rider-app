@@ -3,35 +3,34 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import colors from "../../../constants/colors";
 
 const OrderCard = ({ item = {}, style }) => {
+  const price = item.products.reduce(
+    (acc, i) => +i.price * +i.quantity + acc,
+    0
+  );
+
   return (
     <View style={[styles.container, style]}>
-      <View>
-        <View style={[styles.flex, { paddingBottom: 4 }]}>
-          <Text style={styles.text}>Order # {item?.uid} </Text>
-          <Text style={[styles.text, { color: colors.greyShade1 }]}>
-            {new Date(item.createdAt).toLocaleString()}
-          </Text>
-        </View>
-        <Text
-          style={[
-            styles.text,
-            {
-              color: "#FF1843",
-              paddingBottom: 12,
-              fontFamily: "ProximaNovaSemiBold",
-            },
-          ]}
-        >
-          {item.products?.length} item
+      <View style={[styles.flex, { paddingBottom: 4 }]}>
+        <Text style={styles.text}>Order # {item?.uid} </Text>
+        <Text style={[styles.text, { color: colors.greyShade1 }]}>
+          {new Date(item.createdAt).toLocaleString()}
         </Text>
-        <View style={[styles.flex, { paddingBottom: 4 }]}>
-          <Text style={styles.text}>Delivery date & time </Text>
-          <Text style={styles.text}>Feb 4, 10:00</Text>
-        </View>
-        <View style={styles.flex}>
-          <Text style={styles.text}>Delivery charges </Text>
-          <Text style={styles.text}>$4</Text>
-        </View>
+      </View>
+      <Text
+        style={[
+          styles.text,
+          {
+            color: "#FF1843",
+            paddingBottom: 12,
+            fontFamily: "ProximaNovaSemiBold",
+          },
+        ]}
+      >
+        {item.products?.length} item
+      </Text>
+      <View style={styles.flex}>
+        <Text style={styles.text}>Total price</Text>
+        <Text style={styles.text}>{price} Rs</Text>
       </View>
     </View>
   );

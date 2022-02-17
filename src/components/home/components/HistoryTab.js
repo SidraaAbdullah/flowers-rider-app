@@ -21,43 +21,55 @@ const HistoryTab = ({ data, navigation }) => {
       iconName: "check-circle",
     },
   };
+
   return (
     <React.Fragment>
       <FlatList
         keyExtractor={({ index }) => index}
         data={data}
-        renderItem={({ item, index }) => (
-          <TouchableOpacity
-            style={styles.container}
-            key={index}
-            onPress={() => navigation.push("orderDetail", item)}
-          >
-            <React.Fragment>
-              <OrderCard item={item} />
-              <View style={styles.bottomContainer}>
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <Icon
-                    name={details[item.status].iconName}
-                    color={details[item.status].color}
-                    type="material-icons"
-                  />
-                  <Text style={[styles.text, { marginLeft: 10, fontSize: 16 }]}>
-                    Order {details[item.status].name}
-                  </Text>
-                </View>
-                {!(item.status === ORDER_STATUSES.CANCELLED) && (
-                  <View style={{ flexDirection: "row" }}>
-                    <Icon name="star" color="#FABC5A" type="font-awesome" />
-                    <Icon name="star" color="#FABC5A" type="font-awesome" />
-                    <Icon name="star" color="#FABC5A" type="font-awesome" />
-                    <Icon name="star" color="#FABC5A" type="font-awesome" />
-                    <Icon name="star" color="lightgray" type="font-awesome" />
+        renderItem={({ item, index }) => {
+          let rating = item.products.reduce((acc, i) => +i.rating + acc, 0);
+          if (rating) rating = rating / +item.products.length;
+          console.log(rating);
+          return (
+            <TouchableOpacity
+              style={styles.container}
+              key={index}
+              onPress={() => navigation.push("orderDetail", item)}
+            >
+              <React.Fragment>
+                <OrderCard item={item} />
+                <View style={styles.bottomContainer}>
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <Icon
+                      name={details[item.status].iconName}
+                      color={details[item.status].color}
+                      type="material-icons"
+                    />
+                    <Text
+                      style={[styles.text, { marginLeft: 10, fontSize: 16 }]}
+                    >
+                      Order {details[item.status].name}
+                    </Text>
                   </View>
-                )}
-              </View>
-            </React.Fragment>
-          </TouchableOpacity>
-        )}
+                  {!(item.status === ORDER_STATUSES.CANCELLED) && rating ? (
+                    <View style={{ flexDirection: "row" }}>
+                      {Array.apply(null, Array(Math.floor(rating))).map(
+                        (item) => (
+                          <Icon
+                            name="star"
+                            color="#FABC5A"
+                            type="font-awesome"
+                          />
+                        )
+                      )}
+                    </View>
+                  ) : null}
+                </View>
+              </React.Fragment>
+            </TouchableOpacity>
+          );
+        }}
         ListEmptyComponent={() => (
           <LottieView
             source={require("../../../assets/lotties/70780-no-result-found.json")}
