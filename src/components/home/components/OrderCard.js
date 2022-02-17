@@ -15,7 +15,7 @@ const OrderCard = ({ item = {}, style, onPress }) => {
         <Text
           style={[
             styles.text,
-            { color: colors.primaryShade, paddingBottom: 12 , fontFamily:'ProximaNovaSemiBold'},
+            { color: '#FF1843', paddingBottom: 12 , fontFamily:'ProximaNovaSemiBold'},
           ]}
         >
           {item.products?.length} item
@@ -41,9 +41,9 @@ const styles = StyleSheet.create({
     color: "black",
   },
   container: {
-    backgroundColor: "#F7F7FA",
     borderRadius: 10,
     padding: 15,
+    backgroundColor: "#F7F7FA",
   },
   flex: {
     justifyContent: "space-between",

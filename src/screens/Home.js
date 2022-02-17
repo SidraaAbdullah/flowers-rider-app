@@ -37,7 +37,7 @@ const HomeScreen = ({ navigation }) => {
             <Text style={styles.text}>Hi, {user.name}</Text>
           </View>
           <View>
-            <Icon name="bell" type="font-awesome" />
+            <Icon name="bell" type="font-awesome" color="#FF1843"/>
           </View>
         </View>
         <View
@@ -61,7 +61,7 @@ const HomeScreen = ({ navigation }) => {
                 Available for delivery
               </Text>
               <Switch
-                trackColor={{ false: "#F7F7FA", true: "#FABC5A" }}
+                trackColor={{ false: "#F7F7FA", true: "#FF1843" }}
                 thumbColor={isEnabled ? "white" : "#F7F7FA"}
                 onValueChange={handleAvailableDelivery}
                 value={isEnabled}

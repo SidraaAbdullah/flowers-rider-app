@@ -6,7 +6,7 @@ const CommonButton = ({ onPress, bgColor, text, width, style }) => {
     <TouchableOpacity
       style={[
         styles.container,
-        { backgroundColor: bgColor || "#FABC5A", width: width || "100%" },
+        { backgroundColor: bgColor || "#FF1843", width: width || "100%" },
         style,
       ]}
       onPress={onPress}
@@ -21,11 +21,12 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: "ProximaNovaSemiBold",
     fontSize: 15,
-    color: "black",
+    color: "white",
     textAlign: "center",
   },
   container: {
     borderRadius: 10,
     padding: 14,
+    // color:'white'
   },
 });

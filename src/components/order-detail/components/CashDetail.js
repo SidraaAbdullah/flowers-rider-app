@@ -8,11 +8,11 @@ const CashDetail = ({ orderDetails }) => {
       <View
         style={{ flexDirection: "row", alignItems: "center", marginBottom: 10 }}
       >
-        <Icon style={styles.icon} name="bicycle" type="ionicon" color="#FABC5A" />
+        <Icon style={styles.icon} name="bicycle" type="ionicon" color="#FF1843" />
         <Text style={styles.headingText}>Cash on delivery</Text>
       </View>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <Icon style={styles.icon} name="card" type="ionicon" color="#FABC5A" />
+        <Icon style={styles.icon} name="card" type="ionicon" color="#FF1843" />
         <View style={{ justifyContent: "center" }}>
           <Text style={styles.headingText}>
             Rs: {orderDetails?.delivery_charges}

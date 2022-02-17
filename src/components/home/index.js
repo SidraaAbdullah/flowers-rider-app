@@ -21,7 +21,7 @@ const Home = ({ navigation }) => {
   navigation.addListener("focus", () => {
     refetch();
   });
-  const isTrue = { color: "black", backgroundColor: "white" };
+  const isTrue = { color: "white", backgroundColor: "#FF1843" };
   const Active = orderTabs.find((item) => item.name === tab);
   const data = {
     New: orderData.filter((item) =>
@@ -106,13 +106,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     width: "33.33%",
     textAlign: "center",
+    // backgroundColor:''
   },
   container: {
     backgroundColor: "#F7F7FA",
     borderRadius: 10,
     flexDirection: "row",
     alignItems: "center",
-    padding: 5,
+    padding: 10,
+    elevation:10
   },
   superContainer: { flex: 1, marginHorizontal: 16 },
   mainContainer: { paddingTop: 15, flex: 1, marginBottom: 10 },
