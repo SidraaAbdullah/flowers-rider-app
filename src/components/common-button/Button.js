@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity, StyleSheet, Text } from "react-native";
 
-const CommonButton = ({ onPress, bgColor, text, width, style }) => {
+const CommonButton = ({ onPress, bgColor, text, width, style, textStyles }) => {
   return (
     <TouchableOpacity
       style={[
@@ -11,7 +11,7 @@ const CommonButton = ({ onPress, bgColor, text, width, style }) => {
       ]}
       onPress={onPress}
     >
-      <Text style={styles.text}>{text}</Text>
+      <Text style={[styles.text, textStyles]}>{text}</Text>
     </TouchableOpacity>
   );
 };

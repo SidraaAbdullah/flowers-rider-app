@@ -2,9 +2,9 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import colors from "../../../constants/colors";
 
-const OrderCard = ({ item = {}, style, onPress }) => {
+const OrderCard = ({ item = {}, style }) => {
   return (
-    <TouchableOpacity onPress={onPress} style={[styles.container, style]}>
+    <View style={[styles.container, style]}>
       <View>
         <View style={[styles.flex, { paddingBottom: 4 }]}>
           <Text style={styles.text}>Order # {item?.uid} </Text>
@@ -15,7 +15,11 @@ const OrderCard = ({ item = {}, style, onPress }) => {
         <Text
           style={[
             styles.text,
-            { color: colors.primaryShade, paddingBottom: 12 , fontFamily:'ProximaNovaSemiBold'},
+            {
+              color: colors.primaryShade,
+              paddingBottom: 12,
+              fontFamily: "ProximaNovaSemiBold",
+            },
           ]}
         >
           {item.products?.length} item
@@ -29,7 +33,7 @@ const OrderCard = ({ item = {}, style, onPress }) => {
           <Text style={styles.text}>$4</Text>
         </View>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 

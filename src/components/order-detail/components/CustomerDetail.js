@@ -4,9 +4,8 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import CommonButton from "../../common-button";
 import CustomerCall from "../../modal/CustomerCall";
 
-const CustomerDetail = () => {
+const CustomerDetail = ({ customerDetail }) => {
   const [expanded, setExpanded] = useState(false);
-
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -15,13 +14,7 @@ const CustomerDetail = () => {
           setExpanded(!expanded);
         }}
       >
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
+        <View style={styles.flexJustify}>
           <Text style={styles.headingText}>Customer</Text>
           <Text>
             {expanded ? (
@@ -32,7 +25,7 @@ const CustomerDetail = () => {
           </Text>
         </View>
         {expanded && (
-          <View style={{ marginTop: 5 }}>
+          <View style={styles.marginTop5}>
             <View style={{ flexDirection: "row", marginVertical: 3 }}>
               <Image
                 source={{
@@ -43,12 +36,14 @@ const CustomerDetail = () => {
               <Text
                 style={[styles.headingText, { marginLeft: 10, marginTop: 2 }]}
               >
-                Sarmed Rizvi
+                {customerDetail.name}
               </Text>
             </View>
-            <View style={{ marginTop: 5 }}>
-              <CustomerCall />
-            </View>
+            {customerDetail.phone_number && (
+              <View style={styles.marginTop5}>
+                <CustomerCall phoneDetails={customerDetail.phone_number} />
+              </View>
+            )}
           </View>
         )}
       </TouchableOpacity>
@@ -75,4 +70,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#F7F7FA",
     borderRadius: 10,
   },
+  flexJustify: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  marginTop5: { marginTop: 5 },
 });

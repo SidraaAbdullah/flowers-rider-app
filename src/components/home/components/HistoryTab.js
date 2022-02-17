@@ -8,7 +8,7 @@ import OrderCard from "./OrderCard";
 import LottieView from "lottie-react-native";
 import { FlatList } from "react-native";
 
-const HistoryTab = ({ data }) => {
+const HistoryTab = ({ data, navigation }) => {
   const details = {
     [ORDER_STATUSES.CANCELLED]: {
       name: "cancelled",

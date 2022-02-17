@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Overlay, Icon } from "react-native-elements";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import CommonButton from "../common-button/Button";
+import { Linking } from "react-native";
 
-const CustomerCall = () => {
+const CustomerCall = ({ phoneDetails }) => {
   const [visible, setVisible] = useState(false);
   const toggleOverlay = () => {
     setVisible(!visible);
@@ -11,20 +12,11 @@ const CustomerCall = () => {
 
   return (
     <View>
-      <TouchableOpacity
-        onPress={toggleOverlay}
-        style={{
-          borderRadius: 10,
-          padding: 10,
-          paddingHorizontal: 18,
-          backgroundColor: "white",
-          alignItems: "center",
-        }}
-      >
+      <TouchableOpacity onPress={toggleOverlay} style={styles.contentContainer}>
         <Icon name="call-outline" type="ionicon" />
       </TouchableOpacity>
       <Overlay
-        overlayStyle={{ borderRadius: 14, padding: 10 }}
+        overlayStyle={styles.overlayContainer}
         isVisible={visible}
         onBackdropPress={toggleOverlay}
       >
@@ -34,7 +26,11 @@ const CustomerCall = () => {
             Please call the customer only in an emergency
           </Text>
           <CommonButton text="Done" bgColor="#F7F7FA" onPress={toggleOverlay} />
-          <CommonButton text="Call the customer" style={{ marginTop: 10 }} />
+          <CommonButton
+            text="Call the customer"
+            style={{ marginTop: 10 }}
+            onPress={() => Linking.openURL(`tel:${phoneDetails}`)}
+          />
         </View>
       </Overlay>
     </View>
@@ -56,6 +52,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 20,
   },
+  contentContainer: {
+    borderRadius: 10,
+    padding: 10,
+    paddingHorizontal: 18,
+    backgroundColor: "white",
+    alignItems: "center",
+  },
+  overlayContainer: { borderRadius: 14, padding: 10 },
 });
 
 export default CustomerCall;
