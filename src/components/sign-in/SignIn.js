@@ -7,7 +7,11 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useMutation } from "react-query";
 import { Formik } from "formik";
-import { signInInitialValues, signInValidationSchema } from "../../constants";
+import {
+  DRIVER_STATUS,
+  signInInitialValues,
+  signInValidationSchema,
+} from "../../constants";
 import CommonButton from "../common-button";
 import { showToast } from "../../util/toast";
 import { registerForPushNotificationsAsync } from "../../util/common";
@@ -26,12 +30,26 @@ const SignIn = () => {
         onSuccess: async (res) => {
           axios.defaults.headers.common.Authorization = `bearer ${res.data?.access_token}`;
           await AsyncStorage.setItem("da_logIn", JSON.stringify(res.data));
-          navigation.replace("home");
-          showToast("Successful login", "success");
+          if (res.data.status === DRIVER_STATUS.PENDING) {
+            showToast("You are not verified by our admin support", "error");
+            navigation.replace("pendingScreen");
+          } else {
+            navigation.replace("home");
+            showToast("Successful login", "success");
+          }
           const token = await registerForPushNotificationsAsync();
-          await USER_UPDATE({
-            expo_notification_token: token,
-          });
+          if (token) {
+            await USER_UPDATE({
+              expo_notification_token: token,
+            });
+            await AsyncStorage.setItem(
+              "da_logIn",
+              JSON.stringify({
+                ...(res.data || {}),
+                expo_notification_token: token,
+              })
+            );
+          }
         },
         onError: (e) => {
           showToast("Please enter correct email or password", "danger");

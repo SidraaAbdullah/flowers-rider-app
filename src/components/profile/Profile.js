@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import { View, ScrollView, Alert } from "react-native";
+import { View, ScrollView, Alert, StyleSheet } from "react-native";
 import CommonButton from "../common-button";
 import Input from "../input";
 import { Avatar } from "react-native-elements";
 import { useMutation, useQuery } from "react-query";
 import { PATCH_PROFILE_UPDATE } from "../../queries";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import colors from "../../constants/colors";
+import useLogout from "../../hooks/useLogout";
 
 const Profile = ({ navigation }) => {
   const { mutate: updateDriver } = useMutation(PATCH_PROFILE_UPDATE);
+  const { logout } = useLogout();
   const { data: update, refetch } = useQuery("/driver", {
     onSuccess: async (res) => {
       await AsyncStorage.setItem("da_logIn", JSON.stringify(res.data[0]));
@@ -86,7 +89,22 @@ const Profile = ({ navigation }) => {
           </View>
         </View>
       </ScrollView>
+      <View style={styles.buttonStyles}>
+        <CommonButton
+          text="Logout"
+          onPress={logout}
+          bgColor={colors.greyShade1}
+        />
+      </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  buttonStyles: {
+    // position: "absolute",
+    marginTop: "auto",
+    marginHorizontal: 16,
+  },
+});
 export default Profile;

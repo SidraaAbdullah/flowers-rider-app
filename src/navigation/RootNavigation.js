@@ -4,23 +4,26 @@ import BottomTab from "./BottomTab";
 import * as Screen from "../screens";
 import useStorage from "../hooks/useStorage";
 import AppLoading from "expo-app-loading";
+import { PendingScreen } from "../screens/Pending";
+import { createNavigationContainerRef } from "@react-navigation/native";
+export const navigationRef = createNavigationContainerRef();
+export function navigate(name, params) {
+  if (navigationRef.isReady()) {
+    navigationRef.navigate(name, params);
+  }
+}
 
 const RootNavigator = ({ initialScreen }) => {
-  const [user, isLoading] = useStorage("da_logIn", { isObject: true });
   const Stack = createStackNavigator();
-  if (isLoading) return <AppLoading />;
+
   return (
     <Stack.Navigator
       initialRouteName={initialScreen || "signIn"}
       screenOptions={{ headerShown: false, headerShadowVisible: false }}
     >
-      {!user.access_token && (
-        <React.Fragment>
-          <Stack.Screen name="signUp" component={Screen.SignUpScreen} />
-          <Stack.Screen name="signIn" component={Screen.SignInScreen} />
-        </React.Fragment>
-      )}
-
+      <Stack.Screen name="signUp" component={Screen.SignUpScreen} />
+      <Stack.Screen name="signIn" component={Screen.SignInScreen} />
+      <Stack.Screen name="pendingScreen" component={PendingScreen} />
       <Stack.Screen name="home" component={BottomTab} />
       <Stack.Screen
         name="orderDetail"

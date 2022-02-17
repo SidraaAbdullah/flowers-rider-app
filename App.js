@@ -11,12 +11,13 @@ import {
 import AppLoading from "expo-app-loading";
 import axios from "axios";
 import AsyncStorageLib from "@react-native-async-storage/async-storage";
-import { BASE_URL } from "./src/constants/env";
+import { BASE_URL, DRIVER_STATUS } from "./src/constants/env";
 import * as Notifications from "expo-notifications";
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import { USER_UPDATE } from "./src/queries";
 import { registerForPushNotificationsAsync } from "./src/util/common";
 import * as Location from "expo-location";
+import * as RootNavigation from "./src/navigation/RootNavigation";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -72,24 +73,42 @@ const App = () => {
       }
       let user = await AsyncStorageLib.getItem("da_logIn");
       user = JSON.parse(user);
+      // console.log("login-user::", user);
       if (user?._id) {
         axios.defaults.headers.common.Authorization = `bearer ${user?.access_token}`;
-        axios
-          .post(BASE_URL + "/verify-user")
-          .then(() => {
-            setVerify({ verify: true, isVerifyLoading: false });
-          })
-          .catch(() => {
-            setVerify({ verify: false, isVerifyLoading: false });
-          });
-        const token = await registerForPushNotificationsAsync();
-        await USER_UPDATE({
-          expo_notification_token: token,
+        const res = await axios.post(BASE_URL + "/verify-user", {
+          type: "DRIVER",
         });
+        // console.log(res.data.data);
         await AsyncStorageLib.setItem(
           "da_logIn",
-          JSON.stringify({ ...user, expo_notification_token: token })
+          JSON.stringify({
+            ...user,
+            ...res.data.data,
+          })
         );
+      }
+      let userData = await AsyncStorageLib.getItem("da_logIn");
+      userData = JSON.parse(userData);
+      if (userData?.status === DRIVER_STATUS.PENDING) {
+        setInitialScreen("pendingScreen");
+      }
+      if (userData?.status === DRIVER_STATUS.ACTIVE) {
+        setInitialScreen("home");
+      }
+      console.log(userData);
+      if (userData?._id) {
+        const token = await registerForPushNotificationsAsync();
+        if (token) {
+          // user = await AsyncStorageLib.getItem("da_logIn");
+          await USER_UPDATE({
+            expo_notification_token: token,
+          });
+          await AsyncStorageLib.setItem(
+            "da_logIn",
+            JSON.stringify({ ...user, expo_notification_token: token })
+          );
+        }
       }
       setVerify({ verify: false, isVerifyLoading: false });
 
@@ -102,9 +121,14 @@ const App = () => {
       // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
       responseListener.current =
         Notifications.addNotificationResponseReceivedListener((response) => {
-          console.log(response);
+          setInitialScreen(response.notification.request.content.data?.path);
+          RootNavigation.navigate(
+            response.notification.request.content.data?.path
+          );
+          console.log(RootNavigation);
         });
     } catch (error) {
+      setVerify({ verify: false, isVerifyLoading: false });
       showMessage(error.response?.data?.message || error.toString(), "error");
     }
     return () => {
