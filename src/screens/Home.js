@@ -36,9 +36,6 @@ const HomeScreen = ({ navigation }) => {
           <View style={{ flexDirection: "row" }}>
             <Text style={styles.text}>Hi, {user.name}</Text>
           </View>
-          <View>
-            <Icon name="bell" type="font-awesome" color="#FF1843"/>
-          </View>
         </View>
         <View
           style={{

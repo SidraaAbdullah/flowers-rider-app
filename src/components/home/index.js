@@ -6,6 +6,7 @@ import colors from "../../constants/colors";
 import { getSocketData } from "../../hooks/socket-api";
 import { orderTabs } from "../../util/home";
 import LottieView from "lottie-react-native";
+import { Pressable } from "react-native";
 
 const Home = ({ navigation }) => {
   const [tab, setTab] = useState(orderTabs[0].name);
@@ -64,16 +65,20 @@ const Home = ({ navigation }) => {
     <View style={styles.superContainer}>
       <View style={styles.container}>
         {orderTabs.map((item, key) => (
-          <Text
+          <Pressable
             key={key}
             onPress={() => setTab(item.name)}
             style={[
-              styles.text,
+              styles.tabContainer,
               tab !== item.name ? { color: colors.greyShade1 } : isTrue,
             ]}
           >
-            {item.name}
-          </Text>
+            <Text
+              style={[styles.text, tab === item.name && { color: "white" }]}
+            >
+              {item.name}
+            </Text>
+          </Pressable>
         ))}
       </View>
       <View style={styles.mainContainer}>
@@ -101,12 +106,13 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: "ProximaNovaSemiBold",
     fontSize: 16,
+    textAlign: "center",
+  },
+  tabContainer: {
     paddingVertical: 8,
     borderRadius: 10,
     paddingHorizontal: 15,
     width: "33.33%",
-    textAlign: "center",
-    // backgroundColor:''
   },
   container: {
     backgroundColor: "#F7F7FA",
@@ -114,7 +120,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     padding: 10,
-    elevation:10
+    elevation: 10,
   },
   superContainer: { flex: 1, marginHorizontal: 16 },
   mainContainer: { paddingTop: 15, flex: 1, marginBottom: 10 },
