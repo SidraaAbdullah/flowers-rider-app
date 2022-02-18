@@ -12,39 +12,28 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import CommonButton from "../common-button";
 import colors from "../../constants/colors";
+import { showToast } from "../../util/toast";
 
 const OrderDetail = ({ orderDetails = {} }) => {
   const { mutate: changeOrderStatus } = useMutation(CHANGE_ORDER_STATUS);
   const navigation = useNavigation();
   const acceptOrder = (status) => {
-    Alert.alert("Confirm", "Are you sure you want to accept this order?", [
+    changeOrderStatus(
       {
-        text: "No",
-        onPress: () => navigation.goBack(),
-        style: "cancel",
+        id: orderDetails._id,
+        status: status,
       },
       {
-        text: "Yes",
-        onPress: () => {
-          changeOrderStatus(
-            {
-              id: orderDetails._id,
-              status: status || ORDER_STATUSES["DRIVER-ASSIGNED"],
-            },
-            {
-              onSuccess() {
-                // Alert.alert("This order is assigned to you");
-                navigation.goBack();
-              },
-              onError(error) {
-                Alert.alert(error.response.data?.message);
-                navigation.goBack();
-              },
-            }
-          );
+        onSuccess(res) {
+          showToast(res.message, "success");
+          navigation.goBack();
         },
-      },
-    ]);
+        onError(error) {
+          showToast(error.response.data?.message, "danger");
+          navigation.goBack();
+        },
+      }
+    );
   };
   return (
     <React.Fragment>
@@ -70,7 +59,10 @@ const OrderDetail = ({ orderDetails = {} }) => {
         </View>
       </ScrollView>
       {orderDetails.status === ORDER_STATUSES["IN-PROGRESS"] && (
-        <CommonButton text="Accept" onPress={acceptOrder} />
+        <CommonButton
+          text="Accept"
+          onPress={() => acceptOrder(ORDER_STATUSES["DRIVER-ASSIGNED"])}
+        />
       )}
       {orderDetails.status === ORDER_STATUSES["DRIVER-ASSIGNED"] && (
         <CommonButton
