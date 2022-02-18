@@ -33,11 +33,11 @@ const OrderDetailScreen = () => {
   };
 
   // DEACTIVATING THE SCREEN WHEN ORDER IS ALREADY ASSIGNED TO DRIVER.
-  useEffect(() => {
-    getSocketData(`${_id}_statusUpdate`, (status) =>
-      getUpdatedStatus(status, order)
-    );
-  }, []);
+  // useEffect(() => {
+  //   getSocketData(`${_id}_statusUpdate`, (status) =>
+  //     getUpdatedStatus(status, order)
+  //   );
+  // }, []);
 
   // LOADING SCREEN WHEN FETCHING DATA
   if (isLoading || isRefetching) {

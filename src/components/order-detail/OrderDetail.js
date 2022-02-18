@@ -25,12 +25,12 @@ const OrderDetail = ({ orderDetails = {} }) => {
       },
       {
         onSuccess(res) {
+          navigation.push("home");
           showToast(res.message, "success");
-          navigation.goBack();
         },
         onError(error) {
+          navigation.push("home");
           showToast(error.response.data?.message, "danger");
-          navigation.goBack();
         },
       }
     );
