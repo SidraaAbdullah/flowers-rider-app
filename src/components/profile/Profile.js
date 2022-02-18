@@ -8,13 +8,25 @@ import { PATCH_PROFILE_UPDATE } from "../../queries";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import colors from "../../constants/colors";
 import useLogout from "../../hooks/useLogout";
+import { showToast } from "../../util/toast";
 
 const Profile = ({ navigation }) => {
   const { mutate: updateDriver } = useMutation(PATCH_PROFILE_UPDATE);
   const { logout } = useLogout();
   const { data: update, refetch } = useQuery("/driver", {
     onSuccess: async (res) => {
-      await AsyncStorage.setItem("da_logIn", JSON.stringify(res.data[0]));
+      setEmail(res.data[0]?.email);
+      setName(res.data[0]?.name);
+      setNumber(res.data[0]?.phone_number);
+      let user = await AsyncStorage.getItem("da_logIn");
+      user = JSON.parse(user);
+      await AsyncStorage.setItem(
+        "da_logIn",
+        JSON.stringify({
+          ...user,
+          ...res.data[0],
+        })
+      );
     },
   });
   const [email, setEmail] = useState(update?.data[0].email);
@@ -26,15 +38,10 @@ const Profile = ({ navigation }) => {
       {
         onSuccess: async (res) => {
           refetch();
-          Alert.alert("User profile has been updated.", "", [
-            {
-              text: "OK",
-              onPress: () => navigation.navigate("home", { screen: "profile" }),
-            },
-          ]);
+          showToast("User profile has been updated.", "success");
         },
         onError: () => {
-          Alert.alert("Failed to update user profile.");
+          showToast("Failed to update user profile.", "danger");
         },
       }
     );
